@@ -13,7 +13,7 @@ library("knitr")
 library("ggplot2")
 ```
 
-```{r setup, echo = FALSE}
+```{r setup-training-scores, echo = FALSE}
 # This downloads the csv files with our data
 # into our project directory
 ten <- read.csv(paste0("data/",
@@ -43,6 +43,106 @@ fifty <- read.csv(paste0("data/",
 
 sixty <- read.csv(paste0("data/",
                                 "Users-Export-2018-February-19-0036.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+use_ten <- subset(ten, select = -c(X_trainings_0_training_score,
+                                   X_trainings_1_training_score,
+                                   X_trainings_2_training_score,
+                                   X_trainings_3_training_score,
+                                   X_trainings_4_training_score,
+                                   X_trainings_5_training_score,
+                                   X_trainings_6_training_score,
+                                   X_trainings_7_training_score,
+                                   X_trainings_8_training_score,
+                                   X_trainings_9_training_score,
+                                   X_trainings_10_training_score))
+
+use_twenty <- subset(twenty, select = -c(X_trainings_11_training_score,
+                                   X_trainings_12_training_score,
+                                   X_trainings_13_training_score,
+                                   X_trainings_14_training_score,
+                                   X_trainings_15_training_score,
+                                   X_trainings_16_training_score,
+                                   X_trainings_17_training_score,
+                                   X_trainings_18_training_score,
+                                   X_trainings_19_training_score,
+                                   X_trainings_20_training_score))
+
+use_thirty <- subset(thirty, select = -c(X_trainings_21_training_score,
+                                   X_trainings_22_training_score,
+                                   X_trainings_23_training_score,
+                                   X_trainings_24_training_score,
+                                   X_trainings_25_training_score,
+                                   X_trainings_26_training_score,
+                                   X_trainings_27_training_score,
+                                   X_trainings_28_training_score,
+                                   X_trainings_29_training_score,
+                                   X_trainings_30_training_score))
+
+use_forty <- subset(forty, select = -c(X_trainings_31_training_score,
+                                   X_trainings_32_training_score,
+                                   X_trainings_33_training_score,
+                                   X_trainings_34_training_score,
+                                   X_trainings_35_training_score,
+                                   X_trainings_36_training_score,
+                                   X_trainings_37_training_score,
+                                   X_trainings_38_training_score,
+                                   X_trainings_39_training_score,
+                                   X_trainings_40_training_score))
+
+use_fifty <- subset(fifty, select = -c(X_trainings_41_training_score,
+                                   X_trainings_42_training_score,
+                                   X_trainings_43_training_score,
+                                   X_trainings_44_training_score,
+                                   X_trainings_45_training_score,
+                                   X_trainings_46_training_score,
+                                   X_trainings_47_training_score,
+                                   X_trainings_48_training_score,
+                                   X_trainings_49_training_score,
+                                   X_trainings_50_training_score))
+
+use_sixty <- subset(sixty, select = -c(X_trainings_51_training_score,
+                                   X_trainings_52_training_score,
+                                   X_trainings_53_training_score,
+                                   X_trainings_54_training_score,
+                                   X_trainings_55_training_score,
+                                   X_trainings_56_training_score,
+                                   X_trainings_57_training_score,
+                                   X_trainings_58_training_score,
+                                   X_trainings_59_training_score))
+```
+
+```{r setup-training-history, echo = FALSE}
+# This downloads the csv files with our data
+# into our project directory
+FACS <- read.csv(paste0("data/",
+                                "FACS-training-history.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+SETT <- read.csv(paste0("data/",
+                                "SETT-training-history.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+METT <- read.csv(paste0("data/",
+                                "METT-training-history.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+RETT_F <- read.csv(paste0("data/",
+                                "RETT-Family-training-history.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+RETT_LE <- read.csv(paste0("data/",
+                                "RETT-LE-training-history.csv"),
+                                header = TRUE,
+                                stringsAsFactors = FALSE)
+
+RETT_W <- read.csv(paste0("data/",
+                                "RETT-Workplace-training-history.csv"),
                                 header = TRUE,
                                 stringsAsFactors = FALSE)
 ```
