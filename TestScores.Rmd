@@ -11,6 +11,7 @@ library("dplyr")
 library("tidyr")
 library("knitr")
 library("ggplot2")
+library("ggthemes")
 ```
 
 ```{r setup-training-scores, echo = FALSE}
@@ -146,14 +147,39 @@ RETT_W <- read.csv(paste0("data/",
                                 header = TRUE,
                                 stringsAsFactors = FALSE)
 ```
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Training History of Tools: FACS
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r FACS, echo = FALSE}
+# This looks at the trend of training tool score
+# by customer for FACS
+FACS_ID <- FACS %>%
+  group_by(user_id) %>%
+  unique()
 
-```{r cars}
-summary(cars)
+FACS_ID %>%
+  group_by(user_id, date_taken, score) %>%
+  ggplot(aes(x = date_taken,
+             y = score,
+             color = user_id)) +
+  geom_point(size = 1) +
+  xlab("Date") +
+  ylab("Score")
+
+FACS_ID %>%
+  kable()
+
+```
+
+```{r FACS-number-of-times-taken, echo = FALSE}
+# This looks at the number of times FACS is taken
+# on average by customers
+FACS_ID %>%
+  group_by(user_id) %>%
+  tally() %>%
+  summarize(mean_count = mean(n)) %>%
+  print()
+  
 ```
 
 ## Including Plots
