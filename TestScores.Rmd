@@ -162,8 +162,7 @@ use_RETT_W <- subset(RETT_W, select = -c(user_login, user_email, country, traini
 ```
 
 ## Training History of Tools: FACS
-
-```{r FACS, echo = FALSE}
+```{r FACS, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for FACS
 FACS_ID <- use_FACS %>%
@@ -176,12 +175,9 @@ FACS_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#FACS_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r FACS-number-of-times-taken, echo = FALSE}
@@ -210,12 +206,9 @@ SETT_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#SETT_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r SETT-number-of-times-taken, echo = FALSE}
@@ -244,12 +237,9 @@ METT_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#METT_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r METT-number-of-times-taken, echo = FALSE}
@@ -278,12 +268,9 @@ RETT_F_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#RETT_F_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r RETT_F-number-of-times-taken, echo = FALSE}
@@ -312,12 +299,9 @@ RETT_W_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#RETT_W_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r RETT_W-number-of-times-taken, echo = FALSE}
@@ -346,12 +330,9 @@ RETT_LE_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
-
-#METT_ID %>%
-#  kable("html") %>%
-#  kable_styling("striped")
 ```
 
 ```{r RETT_LE-number-of-times-taken, echo = FALSE}
