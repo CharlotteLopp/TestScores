@@ -193,7 +193,7 @@ FACS_ID %>%
 ```
 
 ## Training History of Tools: SETT
-```{r SETT, echo = FALSE}
+```{r SETT, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for SETT
 SETT_ID <- use_SETT %>%
@@ -224,22 +224,22 @@ SETT_ID %>%
 ```
 
 ## Training History of Tools: METT
-```{r METT, echo = FALSE}
+```{r METT, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for METT
 METT_ID <- use_METT %>%
   group_by(user_id) %>%
   unique()
 
-METT_ID %>%
-  group_by(user_id, date_taken, score) %>%
-  ggplot(aes(x = date_taken,
-             y = score,
-             color = user_id)) +
-  geom_point(size = 1) +
-  facet_wrap( ~ user_id) +
-  xlab("Date") +
-  ylab("Score")
+#METT_ID %>%
+#  group_by(user_id, date_taken, score) %>%
+#  ggplot(aes(x = date_taken,
+#             y = score,
+#             color = user_id)) +
+#  geom_point(size = 1) +
+#  facet_wrap( ~ user_id) +
+#  xlab("Date") +
+#  ylab("Score")
 ```
 
 ```{r METT-number-of-times-taken, echo = FALSE}
@@ -255,7 +255,7 @@ METT_ID %>%
 ```
 
 ## Training History of Tools: RETT Family
-```{r RETT_F, echo = FALSE}
+```{r RETT_F, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for RETT Family
 RETT_F_ID <- use_RETT_F %>%
@@ -286,7 +286,7 @@ RETT_F_ID %>%
 ```
 
 ## Training History of Tools: RETT Workplace
-```{r RETT_W, echo = FALSE}
+```{r RETT_W, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for RETT Workplace
 RETT_W_ID <- use_RETT_W %>%
@@ -317,7 +317,7 @@ RETT_W_ID %>%
 ```
 
 ## Training History of Tools: RETT Law Enforcement
-```{r RETT_LE, echo = FALSE}
+```{r RETT_LE, fig.height = 20, fig.width = 22, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for RETT Law Enforcement
 RETT_LE_ID <- use_RETT_LE %>%
