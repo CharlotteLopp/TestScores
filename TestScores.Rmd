@@ -1,5 +1,5 @@
 ---
-title: "TestScores"
+title: "Test Scores"
 author: "Charlotte Lopp"
 date: "February 22, 2018"
 output: html_document
@@ -191,7 +191,8 @@ FACS_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
 
@@ -224,7 +225,8 @@ SETT_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
 
@@ -257,7 +259,8 @@ METT_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
 
@@ -290,7 +293,8 @@ RETT_F_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
 
@@ -323,7 +327,8 @@ RETT_W_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
 
@@ -356,6 +361,7 @@ RETT_LE_ID %>%
   group_by(user_id) %>%
   tally() %>%
   summarize(mean_count = mean(n)) %>%
-  print()
+  kable("html") %>%
+  kable_styling()
   
 ```
