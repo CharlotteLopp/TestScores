@@ -206,7 +206,6 @@ SETT_ID %>%
              y = score,
              color = user_id)) +
   geom_point(size = 1) +
-  facet_wrap( ~ user_id) +
   xlab("Date") +
   ylab("Score")
 ```
@@ -231,15 +230,14 @@ METT_ID <- use_METT %>%
   group_by(user_id) %>%
   unique()
 
-#METT_ID %>%
-#  group_by(user_id, date_taken, score) %>%
-#  ggplot(aes(x = date_taken,
-#             y = score,
-#             color = user_id)) +
-#  geom_point(size = 1) +
-#  facet_wrap( ~ user_id) +
-#  xlab("Date") +
-#  ylab("Score")
+METT_ID %>%
+  group_by(user_id, date_taken, score) %>%
+  ggplot(aes(x = date_taken,
+             y = score,
+             color = user_id)) +
+  geom_point(size = 1) +
+  xlab("Date") +
+  ylab("Score")
 ```
 
 ```{r METT-number-of-times-taken, echo = FALSE}
