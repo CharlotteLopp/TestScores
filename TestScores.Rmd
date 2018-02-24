@@ -300,4 +300,12 @@ total_METT <- merge(METT_ID, data, by = "user_email")
 ```
 
 ## Trends Across all Tools
+```{r combine-all-dataframes, echo = FALSE}
+# I changed the name of the column names using
+#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+FACS_METT <- rbind(total_FACS, total_METT)
 
+FACS_METT_SETT <- rbind(FACS_METT, total_SETT)
+
+total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
+```
