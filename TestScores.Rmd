@@ -313,7 +313,7 @@ FACS_METT_SETT <- rbind(FACS_METT, SETT_ID)
 total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 ```
 
-```{r our-customer-base-by-occupation, echo = FALSE}
+```{r our-customer-base-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
   filter(Occupation != "") %>%
@@ -333,6 +333,7 @@ total_tools %>%
 
 ```{r our-customer-base-by-sex, echo = FALSE}
 total_tools %>%
+  filter(Sex != "") %>%
   group_by(Sex) %>%
   tally() %>%
   ggplot(aes(x = Sex,
@@ -347,7 +348,7 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by sex.
 
-```{r our-customer-base-by-occupation-by-sex, echo = FALSE}
+```{r our-customer-base-by-occupation-by-sex, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
   filter(Occupation != "") %>%
@@ -366,7 +367,7 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation divided by sex.
 
-```{r our-customer-base-by-sex-by-occupation, echo = FALSE}
+```{r our-customer-base-by-sex-by-occupation, fig.height = 10, fig.width = 13, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
   filter(Occupation != "") %>%
@@ -421,7 +422,7 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by age divided by sex.
 
-```{r our-customer-base-by-age, echo = FALSE}
+```{r our-customer-base-by-age-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(Age != "0") %>%
   group_by(Age, Occupation) %>%
@@ -467,7 +468,7 @@ total_tools %>%
 #  kable_styling()
 ```
 
-```{r top-performers-in-METT-and-SETT, echo = FALSE}
+```{r top-performers-in-METT-and-SETT, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(score == 100.00000) %>%
   group_by(training, Occupation) %>%
@@ -486,7 +487,7 @@ total_tools %>%
 **Note:** This shows our customer base in terms of top performers by occupation divided by METT vs SETT.
 
 ```{r score-distribution-by-training, echo = FALSE}
-total_tools %>%
+#total_tools %>%
 
 ```
 
