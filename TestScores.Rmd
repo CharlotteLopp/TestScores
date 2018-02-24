@@ -331,6 +331,22 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation.
 
+```{r our-customer-base-by-sex, echo = FALSE}
+total_tools %>%
+  group_by(Sex) %>%
+  tally() %>%
+  ggplot(aes(x = Sex,
+             y = n,
+             fill = Sex)) +
+  geom_col(position = "dodge") +
+  xlab("Sex") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by sex.
+
 ```{r our-customer-base-by-occupation-by-sex, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
@@ -349,6 +365,25 @@ total_tools %>%
                        hjust = 1))
 ```
 **Note:** This shows our customer base by occupation divided by sex.
+
+```{r our-customer-base-by-sex-by-occupation, echo = FALSE}
+total_tools %>%
+  filter(Sex != "") %>%
+  filter(Occupation != "") %>%
+  group_by(Occupation, Sex) %>%
+  tally() %>%
+  ggplot(aes(x = Sex,
+             y = n,
+             fill = Sex)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("Sex") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by sex divided by occupation.
 
 ```{r our-customer-base-by-age, echo = FALSE}
 total_tools %>%
@@ -386,20 +421,23 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by age divided by sex.
 
-```{r our-customer-base-by-sex, echo = FALSE}
+```{r our-customer-base-by-age, echo = FALSE}
 total_tools %>%
-  group_by(Sex) %>%
+  filter(Age != "0") %>%
+  group_by(Age, Occupation) %>%
   tally() %>%
-  ggplot(aes(x = Sex,
+  ggplot(aes(x = Age,
              y = n,
-             fill = Sex)) +
+             fill = Age)) +
   geom_col(position = "dodge") +
-  xlab("Sex") +
+  facet_wrap( ~ Occupation) +
+  xlab("Age") +
   ylab("Number of Users") +
   theme(axis.text.x =
           element_text(angle = 90,
                        hjust = 1))
 ```
+**Note:** This shows our customer base by age divided by occupation.
 
 ```{r our-customer-base-by-referral, echo = FALSE}
 #total_tools %>%
@@ -445,6 +483,19 @@ total_tools %>%
   xlab("Occupation") +
   ylab("Number of Users")
 ```
+**Note:** This shows our customer base in terms of top performers by occupation divided by METT vs SETT.
+
+```{r score-distribution-by-training, echo = FALSE}
+total_tools %>%
+
+```
+
+
+
+
+
+
+
 
 
 
