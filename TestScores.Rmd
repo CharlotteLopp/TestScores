@@ -312,6 +312,44 @@ total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 
 ```{r our-customer-base-by-occupation, echo = FALSE}
 total_tools %>%
-  group_by(occupationalStatus)
+  group_by(Occupation) %>%
+  tally() %>%
+  ggplot(aes(x = Occupation,
+             y = n,
+             fill = Occupation)) +
+  geom_col(position = "dodge") +
+  xlab("Occupation") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
 ```
 **Note:** This shows our customer base by occupation.
+
+```{r our-customer-base-by-referral, echo = FALSE}
+# I had to completely redo the entire column of
+# How did you hear about us because of the inconsistent
+# free response answers. I used the following in
+# order to do that: revalue(df$column.name, c("B"="b"))
+total_tools %>%
+  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
+  filter(user_email != "malavasi_eleonora@libero.it") %>%
+  group_by(How.did.you.hear.about.us.) %>%
+  tally() %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users")
+```
+**Note:** This shows our customer base by how they heard about us.
+
+```{r blah, echo = FALSE}
+total_tools %>%
+  group_by(How.did.you.hear.about.us.) %>%
+  tally() %>%
+  kable("html") %>%
+  kable_styling()
+```
+
