@@ -205,6 +205,12 @@ FACS_ID %>%
   kable_styling()
 ```
 
+```{r combine-two-dataframes-FACS-and-data, echo = FALSE}
+# I changed the name of the column names using
+#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+total_FACS <- merge(FACS_ID, data, by "user_email")
+```
+
 ## Training History of Tools: SETT
 ```{r SETT, echo = FALSE}
 # This looks at the trend of training tool score
