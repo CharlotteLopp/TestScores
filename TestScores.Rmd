@@ -193,7 +193,7 @@ FACS_ID %>%
 ```
 
 ## Training History of Tools: SETT
-```{r SETT, fig.height = 20, fig.width = 22, echo = FALSE}
+```{r SETT, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for SETT
 SETT_ID <- use_SETT %>%
@@ -223,7 +223,7 @@ SETT_ID %>%
 ```
 
 ## Training History of Tools: METT
-```{r METT, fig.height = 20, fig.width = 22, echo = FALSE}
+```{r METT, echo = FALSE}
 # This looks at the trend of training tool score
 # by customer for METT
 METT_ID <- use_METT %>%
