@@ -315,6 +315,8 @@ total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 
 ```{r our-customer-base-by-occupation, echo = FALSE}
 total_tools %>%
+  filter(Sex != "") %>%
+  filter(Occupation != "") %>%
   group_by(Occupation) %>%
   tally() %>%
   ggplot(aes(x = Occupation,
@@ -329,8 +331,28 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation.
 
+```{r our-customer-base-by-occupation, echo = FALSE}
+total_tools %>%
+  filter(Sex != "") %>%
+  filter(Occupation != "") %>%
+  group_by(Occupation, Sex) %>%
+  tally() %>%
+  ggplot(aes(x = Occupation,
+             y = n,
+             fill = Occupation)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Sex) +
+  xlab("Occupation") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by occupation divided by sex.
+
 ```{r our-customer-base-by-age, echo = FALSE}
 total_tools %>%
+  filter(Age != "0") %>%
   group_by(Age) %>%
   tally() %>%
   ggplot(aes(x = Age,
@@ -338,6 +360,41 @@ total_tools %>%
              fill = Age)) +
   geom_col(position = "dodge") +
   xlab("Age") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by age.
+
+```{r our-customer-base-by-age, echo = FALSE}
+total_tools %>%
+  filter(Age != "0") %>%
+  filter(Sex != "") %>%
+  group_by(Sex, Age) %>%
+  tally() %>%
+  ggplot(aes(x = Age,
+             y = n,
+             fill = Age)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Sex) +
+  xlab("Age") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by age divided by sex.
+
+```{r our-customer-base-by-sex, echo = FALSE}
+total_tools %>%
+  group_by(Sex) %>%
+  tally() %>%
+  ggplot(aes(x = Sex,
+             y = n,
+             fill = Sex)) +
+  geom_col(position = "dodge") +
+  xlab("Sex") +
   ylab("Number of Users") +
   theme(axis.text.x =
           element_text(angle = 90,
@@ -371,4 +428,28 @@ total_tools %>%
 #  kable("html") %>%
 #  kable_styling()
 ```
+
+```{r top-performers, echo = FALSE}
+total_tools %>%
+  filter(score == 100.00000) %>%
+  group_by(training, Occupation) %>%
+  tally() %>%
+  ggplot(aes(x = Occupation,
+             y = n,
+             fill = Occupation)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1)) +
+  xlab("Occupation") +
+  ylab("Number of Users")
+```
+
+
+
+
+
+
+
 
