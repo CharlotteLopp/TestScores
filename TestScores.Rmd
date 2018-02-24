@@ -441,32 +441,46 @@ total_tools %>%
 **Note:** This shows our customer base by age divided by occupation.
 
 ```{r our-customer-base-by-referral, echo = FALSE}
-#total_tools %>%
-#  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
-# filter(user_email != "malavasi_eleonora@libero.it") %>%
-#  group_by(How.did.you.hear.about.us.) %>%
-#  tally() %>%
-#  ggplot(aes(x = How.did.you.hear.about.us.,
-#             y = n,
-#             fill = How.did.you.hear.about.us.)) +
-#  geom_col(position = "dodge") +
-#  xlab("How Did You Hear About Us") +
-#  ylab("Number of Users")
-```
-**Note:** This shows our customer base by how they heard about us.
+# I had to go into Excel and do find and replace
+# searches (a lot of them) in order to clean up
+# and compile this data into broader categories. 
 
-```{r redo-table-of-referrals, echo = FALSE}
 # I had to completely redo the entire column of
 # How did you hear about us because of the inconsistent
 # free response answers. I went into Excel and
 # made the changes there because after trying to do
 # revalue(df$column.name, c("B"="b")) I cried.
+
+# I used the following script to condense the data
+# and then figure out which ones I should be seeing
+# in my graph.
 #total_tools %>%
 #  group_by(How.did.you.hear.about.us.) %>%
 #  tally() %>%
 #  kable("html") %>%
 #  kable_styling()
+
+total_tools %>%
+#  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
+#  filter(user_email != "malavasi_eleonora@libero.it") %>%
+  group_by(How.did.you.hear.about.us.) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
 ```
+**Note:** This shows our customer base by how they heard about us.
+**Word of Mouth/Previous Member:** These people were either referred by someone they know/it was recommended to them, were previous members, were referred by members of the site, by Asbury, by Chris Hadnagy, or one of our bulk buyers. 
+**Educational Sphere:** This means they learned about us through a class, a lecture, through personal interest and research, professors, classmates, etc - anything related to education. 
 
 ```{r top-performers-in-METT-and-SETT, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
