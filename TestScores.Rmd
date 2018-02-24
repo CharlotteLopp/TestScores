@@ -13,6 +13,7 @@ library("knitr")
 library("ggplot2")
 library("ggthemes")
 library("kableExtra")
+library("plyr")
 ```
 
 ```{r setup-training-scores, echo = FALSE}
@@ -207,7 +208,9 @@ FACS_ID %>%
 
 ```{r combine-two-dataframes-FACS-and-data, echo = FALSE}
 # I changed the name of the column names using
-#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+names(data)[names(data) == 'Email'] <- 'user_email'
+
 total_FACS <- merge(FACS_ID, data, by = "user_email")
 ```
 
@@ -251,7 +254,7 @@ SETT_ID %>%
 
 ```{r combine-two-dataframes-SETT-and-data, echo = FALSE}
 # I changed the name of the column names using
-#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
 total_SETT <- merge(SETT_ID, data, by = "user_email")
 ```
 
@@ -295,14 +298,14 @@ METT_ID %>%
 
 ```{r combine-two-dataframes-METT-and-data, echo = FALSE}
 # I changed the name of the column names using
-#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
 total_METT <- merge(METT_ID, data, by = "user_email")
 ```
 
 ## Trends Across all Tools
 ```{r combine-all-dataframes, echo = FALSE}
 # I changed the name of the column names using
-#  names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
 FACS_METT <- rbind(FACS_ID, METT_ID)
 
 FACS_METT_SETT <- rbind(FACS_METT, SETT_ID)
@@ -326,30 +329,46 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation.
 
-```{r our-customer-base-by-referral, echo = FALSE}
-# I had to completely redo the entire column of
-# How did you hear about us because of the inconsistent
-# free response answers. I used the following in
-# order to do that: revalue(df$column.name, c("B"="b"))
+```{r our-customer-base-by-age, echo = FALSE}
 total_tools %>%
-  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
-  filter(user_email != "malavasi_eleonora@libero.it") %>%
-  group_by(How.did.you.hear.about.us.) %>%
+  group_by(Age) %>%
   tally() %>%
-  ggplot(aes(x = How.did.you.hear.about.us.,
+  ggplot(aes(x = Age,
              y = n,
-             fill = How.did.you.hear.about.us.)) +
+             fill = Age)) +
   geom_col(position = "dodge") +
-  xlab("How Did You Hear About Us") +
-  ylab("Number of Users")
+  xlab("Age") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+
+```{r our-customer-base-by-referral, echo = FALSE}
+#total_tools %>%
+#  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
+# filter(user_email != "malavasi_eleonora@libero.it") %>%
+#  group_by(How.did.you.hear.about.us.) %>%
+#  tally() %>%
+#  ggplot(aes(x = How.did.you.hear.about.us.,
+#             y = n,
+#             fill = How.did.you.hear.about.us.)) +
+#  geom_col(position = "dodge") +
+#  xlab("How Did You Hear About Us") +
+#  ylab("Number of Users")
 ```
 **Note:** This shows our customer base by how they heard about us.
 
-```{r blah, echo = FALSE}
-total_tools %>%
-  group_by(How.did.you.hear.about.us.) %>%
-  tally() %>%
-  kable("html") %>%
-  kable_styling()
+```{r redo-table-of-referrals, echo = FALSE}
+# I had to completely redo the entire column of
+# How did you hear about us because of the inconsistent
+# free response answers. I went into Excel and
+# made the changes there because after trying to do
+# revalue(df$column.name, c("B"="b")) I cried.
+#total_tools %>%
+#  group_by(How.did.you.hear.about.us.) %>%
+#  tally() %>%
+#  kable("html") %>%
+#  kable_styling()
 ```
 
