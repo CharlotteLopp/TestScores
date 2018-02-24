@@ -153,17 +153,17 @@ data <- read.csv(paste0("data/",
                                 header = TRUE,
                                 stringsAsFactors = FALSE)
 
-use_FACS <- subset(FACS, select = -c(user_login, user_email, country, training_id, timespan))
+use_FACS <- subset(FACS, select = -c(user_login, country, training_id, timespan))
 
-use_SETT <- subset(SETT, select = -c(user_login, user_email, country, training_id, timespan))
+use_SETT <- subset(SETT, select = -c(user_login, country, training_id, timespan))
 
-use_METT <- subset(METT, select = -c(user_login, user_email, country, training_id, timespan))
+use_METT <- subset(METT, select = -c(user_login, country, training_id, timespan))
 
-use_RETT_F <- subset(RETT_F, select = -c(user_login, user_email, country, training_id, timespan))
+use_RETT_F <- subset(RETT_F, select = -c(user_login, country, training_id, timespan))
 
-use_RETT_LE <- subset(RETT_LE, select = -c(user_login, user_email, country, training_id, timespan))
+use_RETT_LE <- subset(RETT_LE, select = -c(user_login, country, training_id, timespan))
 
-use_RETT_W <- subset(RETT_W, select = -c(user_login, user_email, country, training_id, timespan))
+use_RETT_W <- subset(RETT_W, select = -c(user_login, country, training_id, timespan))
 ```
 
 ## Training History of Tools: FACS
@@ -197,6 +197,14 @@ FACS_ID %>%
   
 ```
 
+```{r FACS-average-score, echo = FALSE}
+FACS_ID %>%
+  group_by(training) %>%
+  summarize(mean_score = mean(score)) %>%
+  kable("html") %>%
+  kable_styling()
+```
+
 ## Training History of Tools: SETT
 ```{r SETT, echo = FALSE}
 # This looks at the trend of training tool score
@@ -227,6 +235,14 @@ SETT_ID %>%
   
 ```
 
+```{r SETT-average-score, echo = FALSE}
+SETT_ID %>%
+  group_by(training) %>%
+  summarize(mean_score = mean(score)) %>%
+  kable("html") %>%
+  kable_styling()
+```
+
 ## Training History of Tools: METT
 ```{r METT, echo = FALSE}
 # This looks at the trend of training tool score
@@ -255,6 +271,14 @@ METT_ID %>%
   kable("html") %>%
   kable_styling()
   
+```
+
+```{r METT-average-score, echo = FALSE}
+METT_ID %>%
+  group_by(training) %>%
+  summarize(mean_score = mean(score)) %>%
+  kable("html") %>%
+  kable_styling()
 ```
 
 ## Training History of Tools: RETT Family
