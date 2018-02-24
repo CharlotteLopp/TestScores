@@ -331,7 +331,7 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation.
 
-```{r our-customer-base-by-occupation, echo = FALSE}
+```{r our-customer-base-by-occupation-by-sex, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
   filter(Occupation != "") %>%
@@ -367,7 +367,7 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by age.
 
-```{r our-customer-base-by-age, echo = FALSE}
+```{r our-customer-base-by-age-by-sex, echo = FALSE}
 total_tools %>%
   filter(Age != "0") %>%
   filter(Sex != "") %>%
@@ -429,7 +429,7 @@ total_tools %>%
 #  kable_styling()
 ```
 
-```{r top-performers, echo = FALSE}
+```{r top-performers-in-METT-and-SETT, echo = FALSE}
 total_tools %>%
   filter(score == 100.00000) %>%
   group_by(training, Occupation) %>%
