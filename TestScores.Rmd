@@ -312,18 +312,6 @@ FACS_METT_SETT <- rbind(FACS_METT, SETT_ID)
 
 total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 ```
-
-```{r score-distribution-for-FACS, echo = FALSE}
-total_tools %>%
-  filter(training == "FACS Test") %>%
-  group_by(score) %>%
-  tally() %>%
-  ggplot(aes(x = score,
-             y = n,
-             fill = score)) +
-  geom_col(position = "dodge")
-  
-```
 **Note:** This shows the score distribution of FACS.
 
 ```{r score-distribution-for-SETT, echo = FALSE}
