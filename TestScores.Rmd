@@ -313,6 +313,45 @@ FACS_METT_SETT <- rbind(FACS_METT, SETT_ID)
 total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 ```
 
+```{r score-distribution-for-FACS, echo = FALSE}
+total_tools %>%
+  filter(training == "FACS Test") %>%
+  group_by(score) %>%
+  tally() %>%
+  ggplot(aes(x = score,
+             y = n,
+             fill = score)) +
+  geom_col(position = "dodge")
+  
+```
+**Note:** This shows the score distribution of FACS.
+
+```{r score-distribution-for-SETT, echo = FALSE}
+total_tools %>%
+  filter(training == "Subtle Expressions Training Tool") %>%
+  group_by(score) %>%
+  tally() %>%
+  ggplot(aes(x = score,
+             y = n,
+             fill = score)) +
+  geom_col(position = "dodge")
+  
+```
+**Note:** This shows the score distribution of SETT.
+
+```{r score-distribution-for-METT, echo = FALSE}
+total_tools %>%
+  filter(training == "Micro Expressions Training Tool") %>%
+  group_by(score) %>%
+  tally() %>%
+  ggplot(aes(x = score,
+             y = n,
+             fill = score)) +
+  geom_col(position = "dodge")
+  
+```
+**Note:** This shows the score distribution of METT.
+
 ```{r our-customer-base-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
@@ -425,11 +464,12 @@ total_tools %>%
 ```{r our-customer-base-by-age-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(Age != "0") %>%
-  group_by(Age, Occupation) %>%
+  filter(Sex != "") %>%
+  group_by(Age, Occupation, Sex) %>%
   tally() %>%
   ggplot(aes(x = Age,
              y = n,
-             fill = Age)) +
+             fill = Sex)) +
   geom_col(position = "dodge") +
   facet_wrap( ~ Occupation) +
   xlab("Age") +
@@ -460,6 +500,11 @@ total_tools %>%
 #  kable("html") %>%
 #  kable_styling()
 
+# When cleaning data in excel I used the find
+# function but with wildcards so *x* so that
+# everything in the cell would be replaced by
+# whatever I put in the replace function. 
+
 total_tools %>%
 #  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
 #  filter(user_email != "malavasi_eleonora@libero.it") %>%
@@ -482,9 +527,52 @@ total_tools %>%
 **Word of Mouth/Previous Member:** These people were either referred by someone they know/it was recommended to them, were previous members, were referred by members of the site, by Asbury, by Chris Hadnagy, or one of our bulk buyers. 
 **Educational Sphere:** This means they learned about us through a class, a lecture, through personal interest and research, professors, classmates, etc - anything related to education. 
 
+```{r referral-by-occupation, fig.height = 10, fig.width = 13, echo = FALSE}
+total_tools %>%
+#  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
+#  filter(user_email != "malavasi_eleonora@libero.it") %>%
+  group_by(How.did.you.hear.about.us., Occupation) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows referral by occupation. 
+
+```{r referral-by-training-tool, fig.height = 10, fig.width = 13, echo = FALSE}
+total_tools %>%
+  group_by(How.did.you.hear.about.us., training) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows referral by training tool. 
+
 ```{r top-performers-in-METT-and-SETT, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(score == 100.00000) %>%
+  filter(Occupation != "") %>%
   group_by(training, Occupation) %>%
   tally() %>%
   ggplot(aes(x = Occupation,
@@ -498,7 +586,26 @@ total_tools %>%
   xlab("Occupation") +
   ylab("Number of Users")
 ```
-**Note:** This shows our customer base in terms of top performers by occupation divided by METT vs SETT.
+**Note:** This shows our customer base in terms of top performers (score = 100) by occupation divided by METT vs SETT.
+
+```{r top-performers-by-age, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(score == 100.00000) %>%
+  filter(Age != "0") %>%
+  group_by(training, Age) %>%
+  tally() %>%
+  ggplot(aes(x = Age,
+             y = n,
+             fill = Age)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1)) +
+  xlab("Age") +
+  ylab("Number of Users")
+```
+**Note:** This shows our customer base in terms of top performers (score = 100) by age divided by METT vs SETT.
 
 ```{r score-distribution-by-training, echo = FALSE}
 #total_tools %>%
