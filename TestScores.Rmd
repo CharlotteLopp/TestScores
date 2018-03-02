@@ -314,6 +314,26 @@ total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
 ```
 **Note:** This shows the score distribution of FACS.
 
+```{r percent-answered, echo = FALSE}
+Age <- total_tools %>%
+  group_by(Age) %>%
+  tally()
+
+Sex <- total_tools %>%
+  group_by(Sex) %>%
+  tally()
+
+Occupation <- total_tools %>%
+  group_by(Occupation) %>%
+  tally()
+
+Age["Total" ,] <- colSums(Age)
+
+print("For Age, 81.5% of people answered.")
+print("For Sex, 84.6% of people answered.")
+print("For Occupation, 92.2% of people answered.")
+```
+
 ```{r score-distribution-for-SETT, echo = FALSE}
 total_tools %>%
   filter(training == "Subtle Expressions Training Tool") %>%
@@ -494,8 +514,6 @@ total_tools %>%
 # whatever I put in the replace function. 
 
 total_tools %>%
-#  filter(user_email != "zoe.terrapon@club-internet.fr") %>%
-#  filter(user_email != "malavasi_eleonora@libero.it") %>%
   group_by(How.did.you.hear.about.us.) %>%
   tally() %>%
   filter(n > 40) %>%
@@ -513,7 +531,25 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by how they heard about us.
 **Word of Mouth/Previous Member:** These people were either referred by someone they know/it was recommended to them, were previous members, were referred by members of the site, by Asbury, by Chris Hadnagy, or one of our bulk buyers. 
-**Educational Sphere:** This means they learned about us through a class, a lecture, through personal interest and research, professors, classmates, etc - anything related to education. 
+**Educational Sphere:** This means they learned about us through a class, a lecture, through personal interest and research, professors, classmates, etc - anything related to education.
+
+```{r how-you-heard-about-us-2-year-increments, echo = FALSE}
+total_tools %>%
+  group_by(How.did.you.hear.about.us.) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
 
 ```{r referral-by-occupation, fig.height = 10, fig.width = 13, echo = FALSE}
 total_tools %>%
@@ -556,6 +592,24 @@ total_tools %>%
                        hjust = 1))
 ```
 **Note:** This shows referral by training tool. 
+
+```{r score-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(training != "FACS Test") %>%
+  filter(Occupation != "") %>%
+  group_by(Occupation, score) %>%
+  tally() %>%
+  ggplot(aes(x = score,
+             y = n,
+             fill = score)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("Score") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
 
 ```{r top-performers-in-METT-and-SETT, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
