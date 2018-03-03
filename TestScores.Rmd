@@ -344,6 +344,9 @@ FACS_METT <- rbind.fill(FACS_ID, METT_ID)
 FACS_METT_SETT <- rbind.fill(FACS_METT, SETT_ID)
 
 total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
+
+dates <- c(total_tools$date_taken)
+total_tools["year_taken"] <- substring(dates,1,4)
 ```
 **Note:** This shows the score distribution of FACS.
 
