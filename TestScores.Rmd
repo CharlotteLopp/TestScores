@@ -845,15 +845,99 @@ total_tools %>%
 ```
 **Note:** This shows our customer base in terms of top performers (score = 100) by age divided by METT vs SETT for 2017.
 
+## METT and SETT in detail
+```{r METT-number-of-times-taken-2017, echo = FALSE}
+# This looks at the number of times METT is taken
+# on average by customers
+total_tools %>%
+  filter(training == "Micro Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id) %>%
+  tally() %>%
+  summarize(mean_count = mean(n)) %>%
+  kable("html") %>%
+  kable_styling()
+```
+**Note:** This shows the average number of times METT was taken in 2017. 
 
+```{r METT-number-of-times-taken-table, echo = FALSE}
+# Trying to create vector of user_id's that have
+# took METT more than once
+METT_table <- total_tools %>%
+  filter(training == "Micro Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id) %>%
+  tally()
 
+METT_table["Total" ,] <- colSums(METT_table)
 
+METT_table_used_once <- METT_table %>%
+  filter(n == "1") 
 
+print("In 2017, 50.6% of buyers only used METT once.")
 
+use_METT_table <- subset(METT_table, select = -c(n))
+```
 
+```{r METT-in-detail, fig.height = 20, fig.width = 22, echo = FALSE}
+total_tools %>%
+  filter(training == "Micro Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id, date_taken, score) %>%
+  ggplot(aes(x = date_taken,
+             y = score,
+             color = user_id)) +
+  geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
+  xlab("Date") +
+  ylab("Score")
+```
 
+```{r SETT-number-of-times-taken-2017, echo = FALSE}
+# This looks at the number of times SETT is taken
+# on average by customers
+total_tools %>%
+  filter(training == "Subtle Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id) %>%
+  tally() %>%
+  summarize(mean_count = mean(n)) %>%
+  kable("html") %>%
+  kable_styling()
+```
+**Note:** This shows the average number of times SETT was taken in 2017.
 
+```{r SETT-number-of-times-taken-table, echo = FALSE}
+# Trying to create vector of user_id's that have
+# took SETT more than once
+SETT_table <- total_tools %>%
+  filter(training == "Subtle Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id) %>%
+  tally()
 
+SETT_table["Total" ,] <- colSums(SETT_table)
 
+SETT_table_used_once <- SETT_table %>%
+  filter(n == "1") 
+
+print("In 2017, 39.1% of buyers only used SETT once.")
+
+use_SETT_table <- subset(SETT_table, select = -c(n))
+```
+
+```{r SETT-in-detail, fig.height = 20, fig.width = 22, echo = FALSE}
+total_tools %>%
+  filter(training == "Subtle Expressions Training Tool") %>%
+  filter(year_taken == "2017") %>%
+  group_by(user_id, date_taken, score) %>%
+  ggplot(aes(x = date_taken,
+             y = score,
+             color = user_id)) +
+  geom_point(size = 1) +
+  facet_wrap( ~ user_id) +
+  xlab("Date") +
+  ylab("Score")
+```
 
 
