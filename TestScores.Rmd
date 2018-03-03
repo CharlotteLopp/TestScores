@@ -394,6 +394,25 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by occupation.
 
+```{r our-customer-base-by-occupation-by-year, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(Sex != "") %>%
+  filter(Occupation != "") %>%
+  group_by(Occupation, year_taken) %>%
+  tally() %>%
+  ggplot(aes(x = Occupation,
+             y = n,
+             fill = Occupation)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ year_taken) +
+  xlab("Occupation") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by occupation by year.
+
 ```{r our-customer-base-by-sex, echo = FALSE}
 total_tools %>%
   filter(Sex != "") %>%
@@ -410,6 +429,24 @@ total_tools %>%
                        hjust = 1))
 ```
 **Note:** This shows our customer base by sex.
+
+```{r our-customer-base-by-sex-by-year, echo = FALSE}
+total_tools %>%
+  filter(Sex != "") %>%
+  group_by(Sex, year_taken) %>%
+  tally() %>%
+  ggplot(aes(x = Sex,
+             y = n,
+             fill = Sex)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ year_taken) +
+  xlab("Sex") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by sex by year.
 
 ```{r our-customer-base-by-occupation-by-sex, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
@@ -466,6 +503,24 @@ total_tools %>%
 ```
 **Note:** This shows our customer base by age.
 
+```{r our-customer-base-by-age-by-year, echo = FALSE}
+total_tools %>%
+  filter(Age != "0") %>%
+  group_by(Age, year_taken) %>%
+  tally() %>%
+  ggplot(aes(x = Age,
+             y = n,
+             fill = Age)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ year_taken) +
+  xlab("Age") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by age by year.
+
 ```{r our-customer-base-by-age-by-sex, echo = FALSE}
 total_tools %>%
   filter(Age != "0") %>%
@@ -503,6 +558,26 @@ total_tools %>%
                        hjust = 1))
 ```
 **Note:** This shows our customer base by age divided by occupation.
+
+```{r our-customer-base-by-age-by-occupation-2017, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(Age != "0") %>%
+  filter(Sex != "") %>%
+  filter(year_taken == "2017") %>%
+  group_by(Age, Occupation, Sex) %>%
+  tally() %>%
+  ggplot(aes(x = Age,
+             y = n,
+             fill = Sex)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("Age") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows our customer base by age divided by occupation for 2017.
 
 ```{r our-customer-base-by-referral, echo = FALSE}
 # I had to go into Excel and do find and replace
@@ -549,23 +624,25 @@ total_tools %>%
 **Word of Mouth/Previous Member:** These people were either referred by someone they know/it was recommended to them, were previous members, were referred by members of the site, by Asbury, by Chris Hadnagy, or one of our bulk buyers. 
 **Educational Sphere:** This means they learned about us through a class, a lecture, through personal interest and research, professors, classmates, etc - anything related to education.
 
-```{r how-you-heard-about-us-2-year-increments, echo = FALSE}
-#total_tools %>%
-#  group_by(How.did.you.hear.about.us.) %>%
-#  tally() %>%
-#  filter(n > 40) %>%
-#  filter(How.did.you.hear.about.us. != "") %>%
-#  filter(How.did.you.hear.about.us. != ".") %>%
-#  ggplot(aes(x = How.did.you.hear.about.us.,
-#             y = n,
-#             fill = How.did.you.hear.about.us.)) +
-#  geom_col(position = "dodge") +
-#  xlab("How Did You Hear About Us") +
-#  ylab("Number of Users") +
-#  theme(axis.text.x =
-#          element_text(angle = 90,
-#                       hjust = 1))
+```{r our-customer-base-by-referral-by-year, echo = FALSE}
+total_tools %>%
+  group_by(How.did.you.hear.about.us., year_taken) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ year_taken) +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
 ```
+**Note:** This shows our customer base by how they heard about us by year.
 
 ```{r referral-by-occupation, fig.height = 10, fig.width = 13, echo = FALSE}
 total_tools %>%
@@ -589,6 +666,27 @@ total_tools %>%
 ```
 **Note:** This shows referral by occupation. 
 
+```{r referral-by-occupation-2017, echo = FALSE}
+total_tools %>%
+  filter(year_taken == "2017") %>%
+  group_by(How.did.you.hear.about.us., Occupation) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows referral by occupation for 2017.
+
 ```{r referral-by-training-tool, fig.height = 10, fig.width = 13, echo = FALSE}
 total_tools %>%
   group_by(How.did.you.hear.about.us., training) %>%
@@ -609,6 +707,27 @@ total_tools %>%
 ```
 **Note:** This shows referral by training tool. 
 
+```{r referral-by-training-tool-2017, fig.height = 5, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(year_taken == "2017") %>%
+  group_by(How.did.you.hear.about.us., training) %>%
+  tally() %>%
+  filter(n > 40) %>%
+  filter(How.did.you.hear.about.us. != "") %>%
+  filter(How.did.you.hear.about.us. != ".") %>%
+  ggplot(aes(x = How.did.you.hear.about.us.,
+             y = n,
+             fill = How.did.you.hear.about.us.)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  xlab("How Did You Hear About Us") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows referral by training tool for 2017. 
+
 ```{r score-by-occupation, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(training != "FACS Test") %>%
@@ -626,6 +745,27 @@ total_tools %>%
           element_text(angle = 90,
                        hjust = 1))
 ```
+**Note:** This shows score by occupation.
+
+```{r score-by-occupation-2017, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(year_taken == "2017") %>%
+  filter(training != "FACS Test") %>%
+  filter(Occupation != "") %>%
+  group_by(Occupation, score) %>%
+  tally() %>%
+  ggplot(aes(x = score,
+             y = n,
+             fill = score)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ Occupation) +
+  xlab("Score") +
+  ylab("Number of Users") +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1))
+```
+**Note:** This shows score by occupation for 2017.
 
 ```{r top-performers-in-METT-and-SETT, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
@@ -646,6 +786,26 @@ total_tools %>%
 ```
 **Note:** This shows our customer base in terms of top performers (score = 100) by occupation divided by METT vs SETT.
 
+```{r top-performers-in-METT-and-SETT-2017, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(year_taken == "2017") %>%
+  filter(score == 100.00000) %>%
+  filter(Occupation != "") %>%
+  group_by(training, Occupation) %>%
+  tally() %>%
+  ggplot(aes(x = Occupation,
+             y = n,
+             fill = Occupation)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1)) +
+  xlab("Occupation") +
+  ylab("Number of Users")
+```
+**Note:** This shows our customer base in terms of top performers (score = 100) by occupation divided by METT vs SETT for 2017.
+
 ```{r top-performers-by-age, fig.height = 10, fig.width = 10, echo = FALSE}
 total_tools %>%
   filter(score == 100.00000) %>%
@@ -665,12 +825,25 @@ total_tools %>%
 ```
 **Note:** This shows our customer base in terms of top performers (score = 100) by age divided by METT vs SETT.
 
-```{r score-distribution-by-training, echo = FALSE}
-#total_tools %>%
-
+```{r top-performers-by-age-2017, fig.height = 10, fig.width = 10, echo = FALSE}
+total_tools %>%
+  filter(year_taken == "2017") %>%
+  filter(score == 100.00000) %>%
+  filter(Age != "0") %>%
+  group_by(training, Age) %>%
+  tally() %>%
+  ggplot(aes(x = Age,
+             y = n,
+             fill = Age)) +
+  geom_col(position = "dodge") +
+  facet_wrap( ~ training) +
+  theme(axis.text.x =
+          element_text(angle = 90,
+                       hjust = 1)) +
+  xlab("Age") +
+  ylab("Number of Users")
 ```
-
-
+**Note:** This shows our customer base in terms of top performers (score = 100) by age divided by METT vs SETT for 2017.
 
 
 
