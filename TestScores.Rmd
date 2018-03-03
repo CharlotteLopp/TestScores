@@ -316,17 +316,6 @@ total_METT <- merge(METT_ID, data, by = "user_email")
 ```
 
 ## Trends Across all Tools
-```{r combine-all-dataframes, echo = FALSE}
-# I changed the name of the column names using
-# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
-FACS_METT <- rbind.fill(FACS_ID, METT_ID)
-
-FACS_METT_SETT <- rbind.fill(FACS_METT, SETT_ID)
-
-total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
-```
-**Note:** This shows the score distribution of FACS.
-
 ```{r percent-answered, echo = FALSE}
 Age <- total_tools %>%
   group_by(Age) %>%
@@ -346,6 +335,17 @@ print("For Age, 81.5% of people answered.")
 print("For Sex, 84.6% of people answered.")
 print("For Occupation, 92.2% of people answered.")
 ```
+
+```{r combine-all-dataframes, echo = FALSE}
+# I changed the name of the column names using
+# names(df)[names(df) == 'old.var.name'] <- 'new.var.name'
+FACS_METT <- rbind.fill(FACS_ID, METT_ID)
+
+FACS_METT_SETT <- rbind.fill(FACS_METT, SETT_ID)
+
+total_tools <- merge(FACS_METT_SETT, data, by = "user_email")
+```
+**Note:** This shows the score distribution of FACS.
 
 ```{r score-distribution-for-SETT, echo = FALSE}
 total_tools %>%
